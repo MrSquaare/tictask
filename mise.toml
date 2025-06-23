@@ -1,0 +1,3 @@
+[tools]
+java = "zulu-21"
+ruby = "latest"
