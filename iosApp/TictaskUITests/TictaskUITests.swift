@@ -8,7 +8,6 @@
 import XCTest
 
 final class TictaskUITests: XCTestCase {
-
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
