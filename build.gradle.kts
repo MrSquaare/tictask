@@ -22,23 +22,50 @@ tasks.register("lintKotlinFix") {
     dependsOn("detekt", "ktfmtFormat")
 }
 
-tasks.register<Exec>("lintSwift") {
-    group = "formatting"
-    description = "Lint Swift code"
-    commandLine("bash", "-c", """
-        swift package plugin --allow-writing-to-package-directory swiftlint iosApp/ && \
-        swift run swiftformat --lint iosApp/
-    """.trimIndent())
+tasks.register<Exec>("checkSwiftCLI") {
+    group = "verification"
+    description = "Check if Swift CLI is available"
+    commandLine("swift", "--version")
 }
 
-tasks.register<Exec>("lintSwiftFix") {
+tasks.register<Exec>("swiftLint") {
+    group = "formatting"
+    description = "Run SwiftLint on Swift code"
+    dependsOn("checkSwiftCLI")
+    commandLine("swift", "package", "plugin", "--allow-writing-to-package-directory", "swiftlint", "iosApp/")
+}
+
+tasks.register<Exec>("swiftLintFix") {
+    group = "formatting"
+    description = "Run SwiftLint with auto-fix on Swift code"
+    dependsOn("checkSwiftCLI")
+    commandLine("swift", "package", "plugin", "--allow-writing-to-package-directory", "swiftlint", "--fix", "iosApp/")
+}
+
+tasks.register<Exec>("swiftFormat") {
+    group = "formatting"
+    description = "Run SwiftFormat on Swift code"
+    dependsOn("checkSwiftCLI")
+    commandLine("swift", "run", "swiftformat", "iosApp/")
+}
+
+tasks.register<Exec>("swiftFormatLint") {
+    group = "formatting"
+    description = "Run SwiftFormat as linter Swift code"
+    dependsOn("checkSwiftCLI")
+    commandLine("swift", "run", "swiftformat", "--lint", "iosApp/")
+}
+
+tasks.register("lintSwift") {
+    group = "formatting"
+    description = "Lint Swift code"
+    dependsOn("swiftLint", "swiftFormatLint")
+}
+
+tasks.register("lintSwiftFix") {
     group = "formatting"
     description = "Lint and auto-fix Swift code"
-    commandLine("bash", "-c", """
-        swift package plugin --allow-writing-to-package-directory swiftlint --fix iosApp/ && \
-        swift package plugin --allow-writing-to-package-directory swiftlint iosApp/ && \
-        swift run swiftformat iosApp/
-    """.trimIndent())
+    dependsOn("swiftLintFix", "swiftLint", "swiftFormat")
 }
 
 tasks.register("lint") {
