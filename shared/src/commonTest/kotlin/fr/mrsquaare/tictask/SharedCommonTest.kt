@@ -1,12 +1,14 @@
 package fr.mrsquaare.tictask
 
 import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class SharedCommonTest {
 
     @Test
-    fun example() {
-        assertEquals(3, 1 + 2)
+    fun testGreeting() {
+        val greeting = Greeting()
+        val result = greeting.greet()
+        assertTrue(result.contains("Hello"))
     }
 }
