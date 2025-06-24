@@ -1,4 +1,4 @@
-TEAM_ID=
+TEAM_ID=348T9F526C
 
 PRODUCT_NAME=Tictask
 PRODUCT_BUNDLE_IDENTIFIER=fr.mrsquaare.tictask.Tictask$(TEAM_ID)
