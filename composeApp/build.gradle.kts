@@ -7,6 +7,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.ktfmt)
+    id("fr.mrsquaare.plugins.detekt-autocorrect")
 }
 
 kotlin {
@@ -74,5 +77,23 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    detektPlugins(libs.compose.rules.detekt)
 }
 
+tasks.register("lintKotlin") {
+    group = "formatting"
+    description = "Lint Kotlin code"
+
+    dependsOn("detektMetadataMain")
+    dependsOn("detektAndroidDebug")
+    dependsOn("ktfmtCheck")
+}
+
+tasks.register("lintKotlinFix") {
+    group = "formatting"
+    description = "Lint with auto-fix Kotlin code"
+
+    dependsOn("detektMetadataMainAutoCorrect")
+    dependsOn("detektAndroidDebugAutoCorrect")
+    dependsOn("ktfmtFormat")
+}
