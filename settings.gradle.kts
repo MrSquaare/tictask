@@ -2,6 +2,7 @@ rootProject.name = "Tictask"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
+    includeBuild("gradle/plugins")
     repositories {
         google {
             mavenContent {
