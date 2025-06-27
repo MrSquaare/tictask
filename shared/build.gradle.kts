@@ -4,6 +4,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.ktfmt)
+    id("fr.mrsquaare.plugins.detekt-autocorrect")
 }
 
 kotlin {
@@ -45,4 +48,22 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
+}
+
+tasks.register("lintKotlin") {
+    group = "formatting"
+    description = "Lint Kotlin code"
+
+    dependsOn("detektMetadataCommonMain")
+    dependsOn("detektAndroidDebug")
+    dependsOn("ktfmtCheck")
+}
+
+tasks.register("lintKotlinFix") {
+    group = "formatting"
+    description = "Lint with auto-fix Kotlin"
+
+    dependsOn("detektMetadataCommonMainAutoCorrect")
+    dependsOn("detektAndroidDebugAutoCorrect")
+    dependsOn("ktfmtFormat")
 }
