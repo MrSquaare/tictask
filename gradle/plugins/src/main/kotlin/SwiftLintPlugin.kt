@@ -21,7 +21,7 @@ class SwiftLintPlugin : Plugin<Project> {
                 val executionPath = extension.executionPath.get()
                 val targetPath = extension.targetPath.get()
 
-                val relativePath = calculateRelativePath(executionPath, targetPath, project)
+                val relativePath = PathUtils.calculateRelativePath(executionPath, targetPath, project)
 
                 tasks.register("swiftLint", Exec::class.java) {
                     group = "verification"
@@ -60,25 +60,5 @@ class SwiftLintPlugin : Plugin<Project> {
                 }
             }
         }
-    }
-
-    private fun calculateRelativePath(executionPath: String, targetPath: String, project: Project): String {
-        if (executionPath == "." && targetPath == ".") {
-            return "."
-        }
-
-        val executionDir = if (executionPath == ".") {
-            project.projectDir
-        } else {
-            File(project.projectDir, executionPath)
-        }
-
-        val targetDir = if (targetPath == ".") {
-            project.projectDir
-        } else {
-            File(project.projectDir, targetPath)
-        }
-
-        return executionDir.toPath().relativize(targetDir.toPath()).toString()
     }
 }
