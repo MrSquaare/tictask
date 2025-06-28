@@ -50,17 +50,27 @@ android {
     }
 }
 
+detekt { buildUponDefaultConfig = true }
+
+ktfmt { kotlinLangStyle() }
+
 tasks.register("lintKotlin") {
     group = "formatting"
     description = "Lint Kotlin code"
 
-    dependsOn("detektMetadataCommonMain", "detektAndroidDebug", "ktfmtCheck")
+    dependsOn(
+        "detektMetadataCommonMain",
+        "detektAndroidDebug",
+        "detektMetadataIosMain",
+        "ktfmtCheck",
+    )
 }
 
 gradle.projectsEvaluated {
     val t1 = tasks.findByName("detektMetadataCommonMainAutoCorrect")
     val t2 = tasks.findByName("detektAndroidDebugAutoCorrect")
-    val t3 = tasks.findByName("ktfmtFormat")
+    val t3 = tasks.findByName("detektMetadataIosMainAutoCorrect")
+    val t4 = tasks.findByName("ktfmtFormat")
 
     if (t1 != null && t2 != null) {
         t2.mustRunAfter(t1)
@@ -68,11 +78,19 @@ gradle.projectsEvaluated {
     if (t2 != null && t3 != null) {
         t3.mustRunAfter(t2)
     }
+    if (t3 != null && t4 != null) {
+        t4.mustRunAfter(t3)
+    }
 }
 
 tasks.register("lintKotlinFix") {
     group = "formatting"
     description = "Lint with auto-fix Kotlin"
 
-    dependsOn("detektMetadataCommonMainAutoCorrect", "detektAndroidDebugAutoCorrect", "ktfmtFormat")
+    dependsOn(
+        "detektMetadataCommonMainAutoCorrect",
+        "detektAndroidDebugAutoCorrect",
+        "detektMetadataIosMainAutoCorrect",
+        "ktfmtFormat",
+    )
 }

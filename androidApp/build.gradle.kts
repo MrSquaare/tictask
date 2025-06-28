@@ -80,6 +80,12 @@ dependencies {
     detektPlugins(libs.compose.rules.detekt)
 }
 
+detekt { buildUponDefaultConfig = true }
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach { exclude("**/*generated*/**") }
+
+ktfmt { kotlinLangStyle() }
+
 tasks.register("lintKotlin") {
     group = "formatting"
     description = "Lint Kotlin code"
