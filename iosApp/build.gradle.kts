@@ -31,6 +31,18 @@ tasks.register("lintSwiftFix") {
     dependsOn("swiftLintFix", "swiftFormat")
 }
 
+tasks.register<Exec>("build") {
+    group = "build"
+    description = "Build iOS app"
+    workingDir = projectDir
+
+    commandLine(
+        "xcodebuild",
+        "build",
+        "-scheme", "Tictask"
+    )
+}
+
 tasks.register<Exec>("uiTest") {
     group = "verification"
     description = "Run iOS UI tests using test plan"
