@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "3C0D71AC-269C-4A33-888D-859663A28052",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Tictask.xcodeproj",
+      "identifier" : "B9DA97B02DC1472C00A4DA20",
+      "name" : "Tictask"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Tictask.xcodeproj",
+        "identifier" : "A39A22CC2E0B358500FA8135",
+        "name" : "TictaskUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

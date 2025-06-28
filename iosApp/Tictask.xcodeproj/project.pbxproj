@@ -18,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		A39A22CD2E0B358500FA8135 /* TictaskUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TictaskUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3E9C8CE2E0FE8DD002B30D3 /* Tictask.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tictask.xctestplan; sourceTree = "<group>"; };
 		B9DA97B12DC1472C00A4DA20 /* Tictask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tictask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -73,6 +74,7 @@
 		B9DA97A82DC1472C00A4DA20 = {
 			isa = PBXGroup;
 			children = (
+				A3E9C8CE2E0FE8DD002B30D3 /* Tictask.xctestplan */,
 				B9DA98002DC14AA900A4DA20 /* Configuration */,
 				B9DA97B32DC1472C00A4DA20 /* Tictask */,
 				A39A22CE2E0B358500FA8135 /* TictaskUITests */,
