@@ -84,16 +84,25 @@ tasks.register("lintKotlin") {
     group = "formatting"
     description = "Lint Kotlin code"
 
-    dependsOn("detektMetadataMain")
-    dependsOn("detektAndroidDebug")
-    dependsOn("ktfmtCheck")
+    dependsOn("detektMetadataMain", "detektAndroidDebug", "ktfmtCheck")
+}
+
+gradle.projectsEvaluated {
+    val t1 = tasks.findByName("detektMetadataMainAutoCorrect")
+    val t2 = tasks.findByName("detektAndroidDebugAutoCorrect")
+    val t3 = tasks.findByName("ktfmtFormat")
+
+    if (t1 != null && t2 != null) {
+        t2.mustRunAfter(t1)
+    }
+    if (t2 != null && t3 != null) {
+        t3.mustRunAfter(t2)
+    }
 }
 
 tasks.register("lintKotlinFix") {
     group = "formatting"
     description = "Lint with auto-fix Kotlin code"
 
-    dependsOn("detektMetadataMainAutoCorrect")
-    dependsOn("detektAndroidDebugAutoCorrect")
-    dependsOn("ktfmtFormat")
+    dependsOn("detektMetadataMainAutoCorrect", "detektAndroidDebugAutoCorrect", "ktfmtFormat")
 }

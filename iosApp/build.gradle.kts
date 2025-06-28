@@ -19,6 +19,12 @@ tasks.register("lintSwift") {
     dependsOn("swiftLint", "swiftFormatLint")
 }
 
+afterEvaluate {
+    tasks.named("swiftFormat").configure {
+        mustRunAfter("swiftLintFix")
+    }
+}
+
 tasks.register("lintSwiftFix") {
     group = "formatting"
     description = "Lint with auto-fix Swift code"
