@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import tictask.composeapp.generated.resources.Res
-import tictask.composeapp.generated.resources.compose_multiplatform
+import tictask.androidapp.generated.resources.Res
+import tictask.androidapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
