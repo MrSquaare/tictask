@@ -3,7 +3,7 @@ package fr.mrsquaare.tictask
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ComposeAppAndroidUnitTest {
+class SampleTest {
 
     @Test
     fun example() {

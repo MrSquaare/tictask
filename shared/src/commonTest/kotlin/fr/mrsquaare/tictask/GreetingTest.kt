@@ -3,10 +3,10 @@ package fr.mrsquaare.tictask
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class SharedCommonTest {
+class GreetingTest {
 
     @Test
-    fun testGreeting() {
+    fun greet() {
         val greeting = Greeting()
         val result = greeting.greet()
         assertTrue(result.contains("Hello"))
