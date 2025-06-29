@@ -18,7 +18,6 @@ import tictask.androidapp.generated.resources.Res
 import tictask.androidapp.generated.resources.compose_multiplatform
 
 @Composable
-@Preview
 fun App(modifier: Modifier = Modifier) {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
@@ -39,4 +38,10 @@ fun App(modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+private fun AppPreview() {
+    App()
 }
