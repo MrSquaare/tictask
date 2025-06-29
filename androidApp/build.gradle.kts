@@ -66,7 +66,10 @@ dependencies {
     detektPlugins(libs.compose.rules.detekt)
 }
 
-detekt { buildUponDefaultConfig = true }
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom("$projectDir/detekt.yml")
+}
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach { exclude("**/*generated*/**") }
 
