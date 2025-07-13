@@ -40,7 +40,7 @@ class SettingsScreen : MainTabScreen() {
 private fun SettingsScreenPreview() {
     MaterialTheme {
         val settingsScreen = SettingsScreen()
-        Scaffold(topBar = { settingsScreen.topBar?.invoke() }) { innerPadding ->
+        Scaffold(topBar = { settingsScreen.topBar.invoke() }) { innerPadding ->
             settingsScreen.content(Modifier.padding(innerPadding))
         }
     }

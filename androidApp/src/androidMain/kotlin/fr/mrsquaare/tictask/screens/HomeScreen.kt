@@ -52,7 +52,7 @@ class HomeScreen(private val onNavigateToCreate: () -> Unit) : MainTabScreen() {
 private fun HomeScreenPreview() {
     MaterialTheme {
         val homeScreen = HomeScreen(onNavigateToCreate = {})
-        Scaffold(topBar = { homeScreen.topBar?.invoke() }) { innerPadding ->
+        Scaffold(topBar = { homeScreen.topBar.invoke() }) { innerPadding ->
             homeScreen.content(Modifier.padding(innerPadding))
         }
     }
