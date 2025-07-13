@@ -19,7 +19,7 @@ fun MainNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = tabScreens.first().route,
+        startDestination = tabScreens.firstOrNull()?.route ?: return,
         modifier = modifier,
     ) {
         tabScreens.forEach { tabScreen ->
@@ -41,7 +41,6 @@ private fun MainNavigationPreview() {
     MaterialTheme {
         MainNavigation(
             tabScreens = listOf(HomeScreen(onNavigateToCreate = {}), SettingsScreen()),
-            rootNavController = rememberNavController(),
             navController = rememberNavController(),
         )
     }
