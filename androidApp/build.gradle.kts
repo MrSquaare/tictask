@@ -26,6 +26,7 @@ kotlin {
         }
         androidInstrumentedTest.dependencies {
             implementation(libs.androidx.compose.ui.test.junit4)
+            implementation(libs.androidx.uiautomator)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
