@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import fr.mrsquaare.tictask.constants.DEEP_LINK_URI
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,7 +21,7 @@ class DeepLinkTest {
     @Test
     fun deepLink_homeScreen_navigatesToHomeScreen() {
         val intent =
-            Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/home")).apply {
+            Intent(Intent.ACTION_VIEW, Uri.parse("$DEEP_LINK_URI/home")).apply {
                 setPackage("fr.mrsquaare.tictask")
             }
 
@@ -35,7 +36,7 @@ class DeepLinkTest {
     @Test
     fun deepLink_settingsScreen_navigatesToSettingsScreen() {
         val intent =
-            Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/settings")).apply {
+            Intent(Intent.ACTION_VIEW, Uri.parse("$DEEP_LINK_URI/settings")).apply {
                 setPackage("fr.mrsquaare.tictask")
             }
 
@@ -50,7 +51,7 @@ class DeepLinkTest {
     @Test
     fun deepLink_detailsScreen_navigatesToDetailsScreenWithCorrectItem() {
         val intent =
-            Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/details/0")).apply {
+            Intent(Intent.ACTION_VIEW, Uri.parse("$DEEP_LINK_URI/details/0")).apply {
                 setPackage("fr.mrsquaare.tictask")
             }
 
@@ -66,7 +67,7 @@ class DeepLinkTest {
     @Test
     fun deepLink_unknownRoute_fallsBackToHomeScreen() {
         val intent =
-            Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/unknown")).apply {
+            Intent(Intent.ACTION_VIEW, Uri.parse("$DEEP_LINK_URI/unknown")).apply {
                 setPackage("fr.mrsquaare.tictask")
             }
 
