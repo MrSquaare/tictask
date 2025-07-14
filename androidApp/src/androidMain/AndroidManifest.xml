@@ -23,8 +23,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="http" />
-                <data android:host="tictask.mrsquaare.fr" />
+                <data android:scheme="https" android:host="tictask.mrsquaare.fr" />
             </intent-filter>
         </activity>
     </application>
