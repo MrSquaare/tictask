@@ -2,9 +2,6 @@ package fr.mrsquaare.tictask.constants
 
 import fr.mrsquaare.tictask.models.Item
 
-val items = List(20) { index ->
-    Item(
-        id = index,
-        title = "Item ${index + 1}"
-    )
-}
+const val ITEMS_NB = 20
+
+val items = List(ITEMS_NB) { index -> Item(id = index, title = "Item ${index + 1}") }

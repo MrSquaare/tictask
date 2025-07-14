@@ -14,7 +14,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ItemCard(item: Item, onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
+fun ItemCard(item: Item, modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     Card(onClick = onClick, modifier = modifier) {
         Text(
             text = item.title,
