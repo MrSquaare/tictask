@@ -2,6 +2,7 @@ package fr.mrsquaare.tictask
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -21,7 +22,8 @@ class AppNavigationTest {
     fun app_shouldShowHomeScreenByDefault() {
         composeTestRule.setContent { App() }
 
-        composeTestRule.onNodeWithText("Home Screen").assertIsDisplayed()
+        composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
     }
 
     @Test
@@ -34,28 +36,30 @@ class AppNavigationTest {
     }
 
     @Test
-    fun clickingPlusButtonOnHome_shouldShowCreateScreen() {
+    fun clickingItemOnHome_shouldShowDetailsScreen() {
         composeTestRule.setContent { App() }
 
-        composeTestRule.onNodeWithText("Home Screen").assertIsDisplayed()
+        composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
 
-        composeTestRule.onNodeWithContentDescription("Create").performClick()
+        composeTestRule.onNodeWithText("Item 1").performClick()
 
-        composeTestRule.onNodeWithText("Create Screen").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Details: Item 1").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Details Screen: Item 1").assertIsDisplayed()
     }
 
     @Test
     fun navigateToSettings_thenBackToHome_thenBackAgain_shouldCloseApp() {
         composeTestRule.setContent { App() }
 
-        composeTestRule.onNodeWithText("Home Screen").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
 
         composeTestRule.onNodeWithText("Settings").performClick()
         composeTestRule.onNodeWithText("Settings Screen").assertIsDisplayed()
 
         composeTestRule.onNodeWithText("Home").performClick()
-
-        composeTestRule.onNodeWithText("Home Screen").assertIsDisplayed()
+        composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
 
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         device.pressBack()
@@ -65,5 +69,56 @@ class AppNavigationTest {
         }
 
         assert(composeTestRule.activity.isFinishing || composeTestRule.activity.isDestroyed)
+    }
+
+    @Test
+    fun navigateToDetailsScreen_thenBack_shouldReturnToHome() {
+        composeTestRule.setContent { App() }
+
+        composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Item 1").performClick()
+
+        composeTestRule.onNodeWithText("Details: Item 1").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Details Screen: Item 1").assertIsDisplayed()
+
+        composeTestRule.onNodeWithContentDescription("Back").performClick()
+
+        composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
+    }
+
+    @Test
+    fun homeScreen_shouldDisplayMultipleItems() {
+        composeTestRule.setContent { App() }
+
+        composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 2").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 3").assertIsDisplayed()
+    }
+
+    @Test
+    fun navigateToItem1_thenBackToHome_thenToItem2() {
+        composeTestRule.setContent { App() }
+
+        composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Item 1").performClick()
+
+        composeTestRule.onNodeWithText("Details: Item 1").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Details Screen: Item 1").assertIsDisplayed()
+
+        composeTestRule.onNodeWithContentDescription("Back").performClick()
+
+        composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
+        composeTestRule.onNodeWithText("Item 2").assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Item 2").performClick()
+
+        composeTestRule.onNodeWithText("Details: Item 2").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Details Screen: Item 2").assertIsDisplayed()
     }
 }
