@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
+import fr.mrsquaare.tictask.constants.DEEP_LINK_URI
 import fr.mrsquaare.tictask.screens.HomeScreen
 import fr.mrsquaare.tictask.screens.SettingsScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -25,10 +27,19 @@ fun MainNavigation(
         tabScreens.forEach { tabScreen ->
             when (tabScreen.route) {
                 is MainRoute.Home -> {
-                    composable<MainRoute.Home> { tabScreen.content(Modifier) }
+                    composable<MainRoute.Home>(
+                        deepLinks = listOf(navDeepLink<MainRoute.Home>("${DEEP_LINK_URI}/home"))
+                    ) {
+                        tabScreen.content(Modifier)
+                    }
                 }
                 is MainRoute.Settings -> {
-                    composable<MainRoute.Settings> { tabScreen.content(Modifier) }
+                    composable<MainRoute.Settings>(
+                        deepLinks =
+                            listOf(navDeepLink<MainRoute.Settings>("${DEEP_LINK_URI}/settings"))
+                    ) {
+                        tabScreen.content(Modifier)
+                    }
                 }
             }
         }
