@@ -14,19 +14,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ItemCard(
-    item: Item,
-    onClick: () -> Unit = {},
-    modifier: Modifier = Modifier
-) {
-    Card(
-        onClick = onClick,
-        modifier = modifier
-    ) {
+fun ItemCard(item: Item, onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
+    Card(onClick = onClick, modifier = modifier) {
         Text(
             text = item.title,
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
         )
     }
 }
@@ -37,9 +30,7 @@ private fun ItemCardPreview() {
     MaterialTheme {
         ItemCard(
             item = Item(id = 0, title = "Item 1"),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
         )
     }
 }

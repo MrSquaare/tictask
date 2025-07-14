@@ -33,27 +33,15 @@ class HomeScreen(rootNavController: NavController) : MainTabScreen() {
     override val unselectedIcon = Icons.Outlined.Home
     override val label = "Home"
 
-    override val topBar: (@Composable () -> Unit) = {
-        TopAppBar(
-            title = { Text("Home") }
-        )
-    }
+    override val topBar: (@Composable () -> Unit) = { TopAppBar(title = { Text("Home") }) }
 
     override val content: @Composable (Modifier) -> Unit = { modifier ->
-        LazyColumn(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
+        LazyColumn(modifier = modifier.fillMaxSize().padding(16.dp)) {
             items(items) { item ->
                 ItemCard(
                     item = item,
-                    onClick = {
-                        rootNavController.navigate(RootRoute.Details(id = item.id))
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp)
+                    onClick = { rootNavController.navigate(RootRoute.Details(id = item.id)) },
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
                 )
             }
         }

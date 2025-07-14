@@ -40,7 +40,10 @@ fun DetailsScreen(id: Int, onNavigateBack: () -> Unit, modifier: Modifier = Modi
             modifier = Modifier.fillMaxSize().padding(paddingValues),
             contentAlignment = Alignment.Center,
         ) {
-            Text(text = "Details Screen: ${item?.title ?: "Not found"}", style = MaterialTheme.typography.headlineMedium)
+            Text(
+                text = "Details Screen: ${item?.title ?: "Not found"}",
+                style = MaterialTheme.typography.headlineMedium,
+            )
         }
     }
 }

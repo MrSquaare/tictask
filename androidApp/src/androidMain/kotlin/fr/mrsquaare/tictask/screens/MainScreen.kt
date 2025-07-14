@@ -22,11 +22,7 @@ fun MainScreen(rootNavController: NavHostController, modifier: Modifier = Modifi
     val navBackStackEntry by tabNavController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    val tabScreens =
-        listOf(
-            HomeScreen(rootNavController = rootNavController),
-            SettingsScreen(),
-        )
+    val tabScreens = listOf(HomeScreen(rootNavController = rootNavController), SettingsScreen())
 
     Scaffold(
         topBar = { MainTopBar(tabScreens = tabScreens, currentDestination = currentDestination) },
