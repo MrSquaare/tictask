@@ -67,8 +67,6 @@ class AppNavigationTest {
         composeTestRule.waitUntil(timeoutMillis = 3000) {
             composeTestRule.activity.isFinishing || composeTestRule.activity.isDestroyed
         }
-
-        assert(composeTestRule.activity.isFinishing || composeTestRule.activity.isDestroyed)
     }
 
     @Test
