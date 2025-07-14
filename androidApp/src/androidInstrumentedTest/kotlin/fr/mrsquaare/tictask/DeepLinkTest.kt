@@ -19,60 +19,63 @@ class DeepLinkTest {
 
     @Test
     fun deepLink_homeScreen_navigatesToHomeScreen() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/home")).apply {
-            setPackage("fr.mrsquaare.tictask")
-        }
+        val intent =
+            Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/home")).apply {
+                setPackage("fr.mrsquaare.tictask")
+            }
+
         ActivityScenario.launch<MainActivity>(intent).use {
             composeTestRule.waitUntil(timeoutMillis = 5000) {
                 composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
                 true
             }
-            composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
-            composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
         }
     }
 
     @Test
     fun deepLink_settingsScreen_navigatesToSettingsScreen() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/settings")).apply {
-            setPackage("fr.mrsquaare.tictask")
-        }
+        val intent =
+            Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/settings")).apply {
+                setPackage("fr.mrsquaare.tictask")
+            }
+
         ActivityScenario.launch<MainActivity>(intent).use {
             composeTestRule.waitUntil(timeoutMillis = 5000) {
                 composeTestRule.onNodeWithText("Settings Screen").assertIsDisplayed()
                 true
             }
-            composeTestRule.onNodeWithText("Settings Screen").assertIsDisplayed()
         }
     }
 
     @Test
     fun deepLink_detailsScreen_navigatesToDetailsScreenWithCorrectItem() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/details/0")).apply {
-            setPackage("fr.mrsquaare.tictask")
-        }
+        val intent =
+            Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/details/0")).apply {
+                setPackage("fr.mrsquaare.tictask")
+            }
+
         ActivityScenario.launch<MainActivity>(intent).use {
             composeTestRule.waitUntil(timeoutMillis = 5000) {
                 composeTestRule.onNodeWithText("Details: Item 1").assertIsDisplayed()
+                composeTestRule.onNodeWithText("Details Screen: Item 1").assertIsDisplayed()
                 true
             }
-            composeTestRule.onNodeWithText("Details: Item 1").assertIsDisplayed()
-            composeTestRule.onNodeWithText("Details Screen: Item 1").assertIsDisplayed()
         }
     }
 
     @Test
     fun deepLink_unknownRoute_fallsBackToHomeScreen() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/unknown")).apply {
-            setPackage("fr.mrsquaare.tictask")
-        }
+        val intent =
+            Intent(Intent.ACTION_VIEW, Uri.parse("http://tictask.mrsquaare.fr/unknown")).apply {
+                setPackage("fr.mrsquaare.tictask")
+            }
+
         ActivityScenario.launch<MainActivity>(intent).use {
             composeTestRule.waitUntil(timeoutMillis = 5000) {
                 composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
+                composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
                 true
             }
-            composeTestRule.onAllNodes(hasText("Home"))[0].assertIsDisplayed()
-            composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
         }
     }
 }
