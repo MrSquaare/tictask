@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 sealed class RootRoute {
     @Serializable data object Main : RootRoute()
 
-    @Serializable data object Create : RootRoute()
+    @Serializable data class Details(val id: Int) : RootRoute()
 }

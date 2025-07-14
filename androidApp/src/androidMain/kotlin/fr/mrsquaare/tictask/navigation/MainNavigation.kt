@@ -40,7 +40,7 @@ fun MainNavigation(
 private fun MainNavigationPreview() {
     MaterialTheme {
         MainNavigation(
-            tabScreens = listOf(HomeScreen(onNavigateToCreate = {}), SettingsScreen()),
+            tabScreens = listOf(HomeScreen(rootNavController = rememberNavController()), SettingsScreen()),
             navController = rememberNavController(),
         )
     }

@@ -1,28 +1,32 @@
 package fr.mrsquaare.tictask.screens
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import fr.mrsquaare.tictask.constants.items
 import fr.mrsquaare.tictask.navigation.MainRoute
 import fr.mrsquaare.tictask.navigation.MainTabScreen
+import fr.mrsquaare.tictask.navigation.RootRoute
+import fr.mrsquaare.tictask.ui.ItemCard
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
-class HomeScreen(private val onNavigateToCreate: () -> Unit) : MainTabScreen() {
+class HomeScreen(rootNavController: NavController) : MainTabScreen() {
 
     override val route = MainRoute.Home
     override val selectedIcon = Icons.Filled.Home
@@ -31,18 +35,27 @@ class HomeScreen(private val onNavigateToCreate: () -> Unit) : MainTabScreen() {
 
     override val topBar: (@Composable () -> Unit) = {
         TopAppBar(
-            title = { Text("Home") },
-            actions = {
-                IconButton(onClick = onNavigateToCreate) {
-                    Icon(imageVector = Icons.Filled.Add, contentDescription = "Create")
-                }
-            },
+            title = { Text("Home") }
         )
     }
 
     override val content: @Composable (Modifier) -> Unit = { modifier ->
-        Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(text = "Home Screen", style = MaterialTheme.typography.headlineMedium)
+        LazyColumn(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            items(items) { item ->
+                ItemCard(
+                    item = item,
+                    onClick = {
+                        rootNavController.navigate(RootRoute.Details(id = item.id))
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                )
+            }
         }
     }
 }
@@ -51,7 +64,7 @@ class HomeScreen(private val onNavigateToCreate: () -> Unit) : MainTabScreen() {
 @Composable
 private fun HomeScreenPreview() {
     MaterialTheme {
-        val homeScreen = HomeScreen(onNavigateToCreate = {})
+        val homeScreen = HomeScreen(rootNavController = rememberNavController())
         Scaffold(topBar = { homeScreen.topBar.invoke() }) { innerPadding ->
             homeScreen.content(Modifier.padding(innerPadding))
         }

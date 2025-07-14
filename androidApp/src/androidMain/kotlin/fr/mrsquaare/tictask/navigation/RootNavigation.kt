@@ -10,7 +10,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import fr.mrsquaare.tictask.screens.CreateScreen
+import androidx.navigation.toRoute
+import fr.mrsquaare.tictask.screens.DetailsScreen
 import fr.mrsquaare.tictask.screens.MainScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -33,9 +34,9 @@ fun RootNavigation(navController: NavHostController, modifier: Modifier = Modifi
                 )
             },
         ) {
-            MainScreen(navController, Modifier)
+            MainScreen(rootNavController = navController)
         }
-        composable<RootRoute.Create>(
+        composable<RootRoute.Details>(
             enterTransition = {
                 slideInHorizontally(
                     initialOffsetX = { fullWidth -> fullWidth },
@@ -49,7 +50,9 @@ fun RootNavigation(navController: NavHostController, modifier: Modifier = Modifi
                 )
             },
         ) {
-            CreateScreen({ navController.navigateUp() }, Modifier)
+            val args = it.toRoute<RootRoute.Details>()
+
+            DetailsScreen(id = args.id, onNavigateBack = { navController.navigateUp() })
         }
     }
 }

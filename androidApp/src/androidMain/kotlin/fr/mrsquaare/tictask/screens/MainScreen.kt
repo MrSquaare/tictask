@@ -24,11 +24,7 @@ fun MainScreen(rootNavController: NavHostController, modifier: Modifier = Modifi
 
     val tabScreens =
         listOf(
-            HomeScreen(
-                onNavigateToCreate = {
-                    rootNavController.navigate(fr.mrsquaare.tictask.navigation.RootRoute.Create)
-                }
-            ),
+            HomeScreen(rootNavController = rootNavController),
             SettingsScreen(),
         )
 

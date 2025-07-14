@@ -15,15 +15,18 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import fr.mrsquaare.tictask.constants.items
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateScreen(onNavigateBack: () -> Unit, modifier: Modifier = Modifier) {
+fun DetailsScreen(id: Int, onNavigateBack: () -> Unit, modifier: Modifier = Modifier) {
+    val item = items.firstOrNull { it.id == id }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Create") },
+                title = { Text("Details: ${item?.title ?: "Not found"}") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -37,13 +40,13 @@ fun CreateScreen(onNavigateBack: () -> Unit, modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize().padding(paddingValues),
             contentAlignment = Alignment.Center,
         ) {
-            Text(text = "Create Screen", style = MaterialTheme.typography.headlineMedium)
+            Text(text = "Details Screen: ${item?.title ?: "Not found"}", style = MaterialTheme.typography.headlineMedium)
         }
     }
 }
 
 @Preview
 @Composable
-private fun CreateScreenPreview() {
-    MaterialTheme { CreateScreen(onNavigateBack = {}) }
+private fun DetailsScreenPreview() {
+    MaterialTheme { DetailsScreen(id = 0, onNavigateBack = {}) }
 }
