@@ -2,9 +2,9 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.ktfmt)
     id("fr.mrsquaare.plugins.detekt-autocorrect")
 }
