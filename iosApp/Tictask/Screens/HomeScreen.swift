@@ -5,13 +5,16 @@ struct HomeScreen: View {
 
     var body: some View {
         List(items) { item in
-            NavigationLink(destination: DetailsScreen(item: item)) {
+            NavigationLink(value: item) {
                 Text(item.title)
                     .font(.body)
             }
         }
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.large)
+        .navigationDestination(for: Item.self) { item in
+            DetailsScreen(item: item)
+        }
     }
 }
 
