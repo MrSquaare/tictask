@@ -65,7 +65,7 @@ jobs:
           script: ./gradlew :androidApp:connectedCheck --no-daemon
 
   ios-lint:
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
         with:
@@ -78,7 +78,7 @@ jobs:
         run: ./gradlew :iosApp:lintSwift --no-daemon
 
   ios-build:
-    runs-on: macos-15
+    runs-on: macos-26
     needs: ios-lint
     steps:
       - uses: actions/checkout@v4
@@ -92,7 +92,7 @@ jobs:
         run: ./gradlew :iosApp:build --no-daemon
 
   ios-ui-tests:
-    runs-on: macos-15
+    runs-on: macos-26
     needs: ios-build
     steps:
       - uses: actions/checkout@v4
