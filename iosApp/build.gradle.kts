@@ -40,7 +40,7 @@ tasks.register<Exec>("build") {
         "xcodebuild",
         "build",
         "-scheme", "Tictask",
-        "-destination", "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5",
+        "-destination", "platform=iOS Simulator,name=iPhone 17,OS=26.0",
         "CODE_SIGN_IDENTITY=",
         "CODE_SIGNING_REQUIRED=NO",
         "CODE_SIGNING_ALLOWED=NO"
@@ -56,7 +56,7 @@ tasks.register<Exec>("uiTest") {
         "xcodebuild",
         "test",
         "-scheme", "Tictask",
-        "-destination", "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5",
+        "-destination", "platform=iOS Simulator,name=iPhone 17,OS=26.0",
         "CODE_SIGN_IDENTITY=",
         "CODE_SIGNING_REQUIRED=NO",
         "CODE_SIGNING_ALLOWED=NO"
