@@ -15,25 +15,25 @@ final class UniversalLinkTests: XCTestCase {
     func testUniversalLink_homeScreen_navigatesToHomeScreen() throws {
         try openUniversalLink(path: "home")
 
-        XCTAssertTrue(app.navigationBars["Home"].exists)
+        XCTAssertTrue(app.navigationBars["Home"].waitForExistence(timeout: 5))
     }
 
     func testUniversalLink_settingsScreen_navigatesToSettingsScreen() throws {
         try openUniversalLink(path: "settings")
 
-        XCTAssertTrue(app.navigationBars["Settings"].exists)
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
     }
 
     func testUniversalLink_detailsScreen_navigatesToDetailsScreenWithCorrectItem() throws {
         try openUniversalLink(path: "home/0")
 
-        XCTAssertTrue(app.navigationBars["Details: Item 1"].exists)
+        XCTAssertTrue(app.navigationBars["Details: Item 1"].waitForExistence(timeout: 5))
     }
 
     func testUniversalLink_unknownRoute_fallsBackToHomeScreen() throws {
         try openUniversalLink(path: "unknown")
 
-        XCTAssertTrue(app.navigationBars["Home"].exists)
+        XCTAssertTrue(app.navigationBars["Home"].waitForExistence(timeout: 5))
     }
 
     private func openUniversalLink(path: String) throws {
@@ -45,7 +45,7 @@ final class UniversalLinkTests: XCTestCase {
         if #available(iOS 16.4, *) {
             app.open(url)
         } else {
-            XCTFail("Need iOS 16.4+ to run universal link tests")
+            throw XCTSkip("Need iOS 16.4+ to run universal link tests")
         }
     }
 }
