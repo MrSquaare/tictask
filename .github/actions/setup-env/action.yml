@@ -1,0 +1,17 @@
+name: "Setup environment"
+description: "Setup environment"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-java@v4
+      with:
+        distribution: "zulu"
+        java-version: "21"
+
+    - uses: gradle/actions/setup-gradle@v4
+
+    - uses: android-actions/setup-android@v3
+      with:
+        accept-android-sdk-licenses: true
+        log-accepted-android-sdk-licenses: false

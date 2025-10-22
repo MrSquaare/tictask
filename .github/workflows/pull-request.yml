@@ -13,17 +13,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-java@v4
-        with:
-          distribution: "zulu"
-          java-version: "21"
-
-      - uses: gradle/actions/setup-gradle@v4
-
-      - uses: android-actions/setup-android@v3
-        with:
-          accept-android-sdk-licenses: true
-          log-accepted-android-sdk-licenses: false
+      - name: Setup environment
+        uses: ./.github/actions/setup-env
 
       - name: Assemble Shared
         run: ./gradlew :shared:assembleDebug --no-daemon
@@ -43,20 +34,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-java@v4
-        with:
-          distribution: "zulu"
-          java-version: "21"
-
-      - uses: gradle/actions/setup-gradle@v4
-
-      - uses: android-actions/setup-android@v3
-        with:
-          accept-android-sdk-licenses: true
-          log-accepted-android-sdk-licenses: false
-
-      - name: Assemble Android app
-        run: ./gradlew :androidApp:assembleDebug --no-daemon
+      - name: Setup environment
+        uses: ./.github/actions/setup-env
 
       - name: Run Android lints
         run: |
@@ -65,6 +44,9 @@ jobs:
 
       - name: Run Android unit tests
         run: ./gradlew :androidApp:testDebugUnitTest --no-daemon
+
+      - name: Assemble Android app
+        run: ./gradlew :androidApp:assembleDebug --no-daemon
 
       - name: Enable KVM group perms
         run: |
@@ -82,30 +64,43 @@ jobs:
           heap-size: 600M
           script: ./gradlew :androidApp:connectedCheck --no-daemon
 
-  ios-checks:
+  ios-lint:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-java@v4
-        with:
-          distribution: "zulu"
-          java-version: "21"
+      - name: Setup environment
+        uses: ./.github/actions/setup-env
 
-      - uses: gradle/actions/setup-gradle@v4
+      - name: Run iOS lints
+        run: ./gradlew :iosApp:lintSwift --no-daemon
 
-      - uses: android-actions/setup-android@v3
+  ios-build:
+    runs-on: macos-15
+    needs: ios-lint
+    steps:
+      - uses: actions/checkout@v4
         with:
-          accept-android-sdk-licenses: true
-          log-accepted-android-sdk-licenses: false
+          fetch-depth: 0
+
+      - name: Setup environment
+        uses: ./.github/actions/setup-env
 
       - name: Build iOS app
         run: ./gradlew :iosApp:build --no-daemon
 
-      - name: Run iOS lints
-        run: ./gradlew :iosApp:lintSwift --no-daemon
+  ios-ui-tests:
+    runs-on: macos-15
+    needs: ios-build
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup environment
+        uses: ./.github/actions/setup-env
 
       - name: Run iOS UI tests
         run: ./gradlew :iosApp:uiTest --no-daemon
